@@ -36,16 +36,20 @@ function new_object(en,x,y)
   return ob
 end
 
+function set_player(dir,x,y)
+  player=new_object(2,x,y)
+  player.dir=dir
+  state[y*16+x]=player
+  add(train,player)
+  add(objects,player)
+end
+
 function add_mapob(en,x,y)
   local ob=new_object(en,x,y)
   state[ob.y*16+ob.x]=ob
   add(objects,ob)
   if en==1 then
     exit=ob
-  elseif en==2 then
-    player=ob
-    player.dir=1
-    add(train,player)
   else
     items+=1
   end
@@ -105,8 +109,13 @@ function load_map()
   for y=0,15 do
     for x=0,15 do
       local sp=mget(bx+x,by+y)
-      local en=band(fget(sp),0x3f)
-      if (en>0) add_mapob(en,x,y)
+      if fget(sp,5) then
+        local dir=band(fget(sp),3)
+        set_player(dir,x,y)
+      else
+        local en=band(fget(sp),0x1f)
+        if (en>0) add_mapob(en,x,y)
+      end
     end
   end
 end
@@ -139,7 +148,7 @@ function draw_object(ob)
     spr(sp,ob.x*8-1,ob.y*8,1,1,true)
   elseif dir==2 then
     spr(sp,ob.x*8-1,ob.y*8-1,1,1,true,true)
- else
+  else
     spr(sp,ob.x*8,ob.y*8)
   end
 end

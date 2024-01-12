@@ -63,7 +63,7 @@ function print_title()
   print("a",x+8,y,11)
   print("k",x+12,y,10)
   color(13)
-  print("(𝘤) jakubito 2023",30,99)
+  print("(𝘤) jakubito + simi 2023",16,99)
   print("og vlak by m.nemecek 1993",14,106)
 end
 

@@ -4,7 +4,7 @@ loading_screen={
   init=function()
     rows=0
     show_lvl=false
-    show_msg=false
+    show_thx=false
     finished=false
     loading:reset()
   end,
@@ -21,8 +21,8 @@ loading_screen={
     draw_map()
     draw_objects()
     draw_rows()
-    if show_msg then
-      print_congrats()
+    if show_thx then
+      print_thx()
     elseif show_lvl and rows>7 then
       print_lvl()
     end
@@ -39,7 +39,7 @@ loading=co(function()
 end)
 
 function game_finished()
-  show_msg=true
+  show_thx=true
   wait(15)
   finished=true
 end
@@ -75,7 +75,7 @@ function draw_rows()
   end
 end
 
-function print_congrats()
+function print_thx()
   local x0,y0,x1,y1=48,56,78,64
   rectfill(x0+1,y0+1,x1+1,y1+1,2)
   rectfill(x0,y0,x1,y1,0)
